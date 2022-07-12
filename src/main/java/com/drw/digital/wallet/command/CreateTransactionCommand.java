@@ -1,6 +1,6 @@
 package com.drw.digital.wallet.command;
 
-import com.drw.digital.wallet.action.DebitTransaction;
+import com.drw.digital.wallet.action.DepositTransaction;
 import com.drw.digital.wallet.action.GenericTransaction;
 import com.drw.digital.wallet.action.TransferTransaction;
 import com.drw.digital.wallet.action.WithdrawTransaction;
@@ -14,7 +14,7 @@ public class CreateTransactionCommand {
     static {
         TRANSACTIONS = Map.of(
                 "withdraw", WithdrawTransaction::new,
-                "debit", DebitTransaction::new,
+                "debit", DepositTransaction::new,
                 "transfer", TransferTransaction::new
         );
     }

@@ -1,6 +1,6 @@
 package com.drw.digital.wallet.action;
 
-public class DebitTransaction implements GenericTransaction {
+public class DepositTransaction implements GenericTransaction {
 
 
     @Override
