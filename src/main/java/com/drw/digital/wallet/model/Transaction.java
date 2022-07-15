@@ -1,12 +1,16 @@
 package com.drw.digital.wallet.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
+@Document(collection = "transactions")
 public class Transaction {
 
-    int id;
+    @Id
+    String id;
     String fromWalletId;
     String toWalletId;
     double amount;

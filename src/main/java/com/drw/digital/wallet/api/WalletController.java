@@ -11,7 +11,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
-@RestController(value = "/wallets")
+@RestController
+@RequestMapping("/api/v1/wallets")
 public class WalletController {
 
     @Autowired
@@ -23,17 +24,19 @@ public class WalletController {
     }
 
     @PostMapping
-    private Mono<Void> createWallet(@RequestBody Wallet){
-
+    private Mono<Wallet> createWallet(@RequestBody Wallet wallet){
+        return service.createWallet(wallet);
     }
 
     @PutMapping(path = "/{walletId}/money")
-    private Mono<Void> transactMoney(@PathVariable String fromWalletId, @RequestParam String action, @RequestBody Transaction transaction){
+    private Mono<Transaction> transactMoney(@PathVariable String walletId, @RequestParam String action, @RequestBody Transaction transaction){
 
         CreateTransactionCommand createTransactionCommand = new CreateTransactionCommand();
         GenericTransaction trx = createTransactionCommand.createTransaction(action);
 
-        trx.makeTransaction(fromWalletId, transaction.getToWalletId(), transaction.getAmount());
+        transaction.setFromWalletId(walletId);
+
+        return trx.makeTransaction(walletId, transaction.getToWalletId(), transaction.getAmount());
 
     }
 }
